@@ -1,3 +1,6 @@
+//THIS PROGRAM ILLLUSTRATED THE BASIC IMPLEMENTATION
+//OF THE ANIMATED SWITCHER WIDGET
+
 import 'package:flutter/material.dart';
 
 void main() {
