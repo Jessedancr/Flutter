@@ -9,8 +9,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// List of todo items
+
 class _HomePageState extends State<HomePage> {
+  // Text controller
+  final _controller = TextEditingController();
+  // List of todo items
   List toDoItems = [
     ["Make tutorial", false],
     ["Dance practice", true],
@@ -24,13 +27,24 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Function to create new task
-  void createNewtask(){
-    showDialog(context: context, builder: (context){
-      return DialogBox();
+  // Function to save new task
+  void SaveNewTask(){
+    setState(() {
+      toDoItems.add([controller.text]);
     });
   }
 
+  // Function to create new task
+  void createNewtask(){
+    showDialog(context: context, builder: (context){
+      return DialogBox(
+        controller: _controller,
+        onSave: SaveNewTask,
+        onCancel: ()=> Navigator.of(context).pop(),
+      );
+    });
+  }
+  TextEditingController controller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +52,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("MY TODO APP"),
         centerTitle: true,
+        elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewtask,
         child: Icon(Icons.add),
+        elevation: 0,
       ),
       body: ListView.builder(
         itemCount: toDoItems.length,
