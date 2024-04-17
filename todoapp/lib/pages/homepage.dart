@@ -9,28 +9,51 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-// List of todo items
+
 class _HomePageState extends State<HomePage> {
+  // Text controller
+  final _controller = TextEditingController();
+  // LIST OF TODO ITEMS
   List toDoItems = [
     ["Make tutorial", false],
-    ["Dance practice", true],
+    ["Dance practice", false],
     ["Do exercise", false],
   ];
 
-  // Function to check or uncheck the box
+  // FUNCTION TO CHECK OR UNCHECK THE BOX
   void checkBoxChanged(bool? value, int index) {
     setState(() {
       toDoItems[index][1] = !toDoItems[index][1];
     });
   }
 
-  // Function to create new task
-  void createNewtask(){
-    showDialog(context: context, builder: (context){
-      return DialogBox();
+  // FUNCTION TO SAVE NEW TASK
+  void SaveNewTask(){
+    setState(() {
+      toDoItems.add([_controller.text, false]);
+      Navigator.of(context).pop();
+      _controller.clear();
     });
   }
 
+  // FUNCTION TO CREATE NEW TASK
+  void createNewtask(){
+    showDialog(context: context, builder: (context){
+      return DialogBox(
+        controller: _controller,
+        onSave: SaveNewTask,
+        onCancel: ()=> Navigator.of(context).pop(),
+      );
+    });
+  }
+  TextEditingController controller=TextEditingController();
+
+  // FUNCTION TO DELETE TASK
+  void deleteTask(int index){
+    setState(() {
+      toDoItems.removeAt(index);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +61,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("MY TODO APP"),
         centerTitle: true,
+        elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewtask,
         child: Icon(Icons.add),
+        elevation: 0,
       ),
       body: ListView.builder(
         itemCount: toDoItems.length,
@@ -49,6 +74,7 @@ class _HomePageState extends State<HomePage> {
           return ToDoTile(
             taskName: toDoItems[index][0],
             taskDone: toDoItems[index][1],
+            deleteFunction: (context) => deleteTask(index),
             onChanged: (value) {
               checkBoxChanged(value, index);
             },
