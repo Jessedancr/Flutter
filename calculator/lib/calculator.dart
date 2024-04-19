@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'glass_box.dart';
 import 'my_button.dart';
 import 'package:math_expressions/math_expressions.dart';
-
 
 class Calculator extends StatefulWidget {
   const Calculator({super.key});
@@ -79,37 +79,41 @@ class _CalculatorState extends State<Calculator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.transparent,
         title: Text('My Calculator'),
         centerTitle: true,
         elevation: 0.0,
+        toolbarHeight: 40.0,
       ),
       body: Center(
         child: Column(
           // Question and answer expanded widget
           children: [
             Expanded(
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        userQuestion,
-                        style: TextStyle(fontSize: 20),
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: GlassBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          userQuestion,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        alignment: Alignment.centerLeft,
                       ),
-                      alignment: Alignment.centerLeft,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text(
-                        userAnswer,
-                        style: TextStyle(fontSize: 20),
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          userAnswer,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        alignment: Alignment.centerRight,
                       ),
-                      alignment: Alignment.centerRight,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -123,13 +127,14 @@ class _CalculatorState extends State<Calculator> {
                   childAspectRatio: 1.2 / 1.2,
                   crossAxisSpacing: 6,
                   mainAxisSpacing: 1.5,
-                  //mainAxisExtent: 63.0
+                  mainAxisExtent: 62.0
                 ),
                 itemCount: buttons.length,
                 itemBuilder: (context, index) {
                   if (index == 0 || index == 1) {
                     // Clear and AC buttons
                     return MyButton(
+                      splashColor: Colors.grey[400],
                       buttonColor: Colors.grey[600],
                       buttonText: buttons[index],
                       textColor: Colors.white,
@@ -139,6 +144,7 @@ class _CalculatorState extends State<Calculator> {
                   // Equal button
                   else if (index == buttons.length - 1) {
                     return MyButton(
+                      splashColor: Colors.grey,
                       buttonTapped: () {
                         setState(() {
                           equalPressed();
@@ -150,9 +156,11 @@ class _CalculatorState extends State<Calculator> {
                       buttonText: buttons[index],
                       textColor: Colors.white,
                     );
-                   
                   } else {
                     return MyButton(
+                      splashColor: isOperator(buttons[index])
+                          ? Colors.white
+                          : Colors.grey,
                       buttonTapped: () {
                         setState(() {
                           userQuestion += buttons[index];
