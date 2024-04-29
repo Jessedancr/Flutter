@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -19,7 +21,7 @@ class ToDoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 18.0, left: 18.0, right: 18.0),
+      padding: const EdgeInsets.only(top: 22.0, left: 16.0, right: 16.0),
       child: Slidable(
         endActionPane: ActionPane(
           motion: StretchMotion(),
@@ -32,30 +34,59 @@ class ToDoTile extends StatelessWidget {
             ),
           ],
         ),
-        child: Container(
-          padding: EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: Colors.deepPurple,
-          ),
-          child: Row(
-            children: [
-              // Check box
-              Checkbox(
-                value: taskDone,
-                onChanged: onChanged,
-                activeColor: Colors.black,
-              ),
-              // Task name
-              Text(
-                taskName,
-                style: TextStyle(
-                  decoration: taskDone
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Container(
+            color: Colors.transparent,
+            height: 35,
+            child: Stack(
+              children: [
+                // Blur effect
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 5.0,
+                    sigmaY: 5.0,
+                  ),
+                  child: Container(),
                 ),
-              ),
-            ],
+
+                // Gradient effect
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.white.withOpacity(0.25),
+                        Colors.black.withOpacity(0.75),
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                ),
+
+                // Child
+                Row(
+                  children: [
+                    // Check box
+                    Checkbox(
+                      value: taskDone,
+                      onChanged: onChanged,
+                      activeColor: Colors.black,
+                    ),
+                    // Task name
+                    Text(
+                      taskName,
+                      style: TextStyle(
+                        decoration: taskDone
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

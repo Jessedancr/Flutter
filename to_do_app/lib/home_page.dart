@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
+import 'my_appbar.dart';
 import 'my_bottom_sheet.dart';
+import 'reusables/add_button.dart';
 import 'reusables/to_do_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final _controller = TextEditingController();
-  // List of to do items
-  final List toDoItems = [
-    ['Make tutorials', false],
-    ['Buy groceries', false],
-  ];
+  // LIST OF TO DO ITEMS
+  final List toDoItems = [];
 
-  // Function to check the checkbox
+  // FUNCTION TO CHECK THE CHECKBOX
   void checkBoxChanged(bool value, int index) {
     setState(() {
       toDoItems[index][1] = !toDoItems[index][1];
     });
   }
 
-  // Function to save new task
+// FUNCTION TO SAVE NEW TASK
   void saveNewTask() {
     setState(() {
       toDoItems.add([_controller.text, false]);
@@ -33,11 +32,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // Function to add new task
+  // FUNCTION TO ADD NEW TASK
   void createNewTask() {
     showModalBottomSheet(
         isDismissible: false,
-        backgroundColor: Colors.deepPurple[200],
+        backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.only(
             topStart: Radius.circular(15.0),
@@ -48,12 +47,12 @@ class _HomePageState extends State<HomePage> {
         builder: (BuildContext) {
           return MyBottomSheet(
             onSave: saveNewTask,
-            onCancel: () => Navigator.of(context).pop(),
             controller: _controller,
           );
         });
   }
 
+  // FUNCTION TO DELETE TASK
   void deleteTask(index) {
     setState(() {
       toDoItems.removeAt(index);
@@ -63,35 +62,47 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[200],
-      appBar: AppBar(
-        elevation: 0.0,
-        title: Text(
-          'TO DO APP',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(
+                'images/background2.jpg',
+              ),
+              fit: BoxFit.cover),
         ),
-        centerTitle: true,
-      ),
-      floatingActionButton: FloatingActionButton(
-        elevation: 0.0,
-        child: Icon(
-          Icons.add,
-          color: Colors.black,
+        child: Stack(
+          children: [
+            MyAppBar(),
+            Positioned(
+              top: 30,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: toDoItems.length,
+                itemBuilder: (context, index) {
+                  return ToDoTile(
+                    taskDone: toDoItems[index][1],
+                    taskName: toDoItems[index][0],
+                    onChanged: (value) => checkBoxChanged(value!, index),
+                    deleteTask: (value) => deleteTask(index),
+                  );
+                },
+              ),
+            ),
+
+            // Add Button
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: AddButton(
+                onTap: createNewTask,
+              ),
+            ),
+          ],
         ),
-        onPressed: createNewTask,
-      ),
-      body: ListView.builder(
-        itemCount: toDoItems.length,
-        itemBuilder: (context, index) {
-          return ToDoTile(
-            taskDone: toDoItems[index][1],
-            taskName: toDoItems[index][0],
-            onChanged: (value) => checkBoxChanged(value!, index),
-            deleteTask: (value) => deleteTask(index),
-          );
-        },
       ),
     );
   }
