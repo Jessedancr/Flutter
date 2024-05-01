@@ -1,8 +1,10 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'my_appbar.dart';
-import 'my_bottom_sheet.dart';
-import 'reusables/add_button.dart';
-import 'reusables/to_do_tile.dart';
+
+// OTHER IMPORTS
+import 'package:to_do_app/screens/completed_tasks.dart';
+import 'package:to_do_app/screens/new_task.dart';
+import 'package:to_do_app/screens/scheduled_tasks.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,98 +14,74 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  final _controller = TextEditingController();
-  // LIST OF TO DO ITEMS
-  final List toDoItems = [];
+  int selectedIndex = 1;
 
-  // FUNCTION TO CHECK THE CHECKBOX
-  void checkBoxChanged(bool value, int index) {
+  // LIST OF PAGES/SCREENS FOR BOTTOM BAR
+  final List screens = [
+    ScheduledTasks(),
+    NewTask(),
+    CompletedTasks(),
+  ];
+
+  // METHOD TO NAVIGATE BOTTOM BAR
+  void navigateBottomBar(int index) {
     setState(() {
-      toDoItems[index][1] = !toDoItems[index][1];
-    });
-  }
-
-// FUNCTION TO SAVE NEW TASK
-  void saveNewTask() {
-    setState(() {
-      toDoItems.add([_controller.text, false]);
-      Navigator.of(context).pop();
-      _controller.clear();
-    });
-  }
-
-  // FUNCTION TO ADD NEW TASK
-  void createNewTask() {
-    showModalBottomSheet(
-        isDismissible: false,
-        backgroundColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.only(
-            topStart: Radius.circular(15.0),
-            topEnd: Radius.circular(15.0),
-          ),
-        ),
-        context: context,
-        builder: (BuildContext) {
-          return MyBottomSheet(
-            onSave: saveNewTask,
-            controller: _controller,
-          );
-        });
-  }
-
-  // FUNCTION TO DELETE TASK
-  void deleteTask(index) {
-    setState(() {
-      toDoItems.removeAt(index);
+      selectedIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(
-                'images/background2.jpg',
-              ),
-              fit: BoxFit.cover),
-        ),
-        child: Stack(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyAppBar(),
-            Positioned(
-              top: 30,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: toDoItems.length,
-                itemBuilder: (context, index) {
-                  return ToDoTile(
-                    taskDone: toDoItems[index][1],
-                    taskName: toDoItems[index][0],
-                    onChanged: (value) => checkBoxChanged(value!, index),
-                    deleteTask: (value) => deleteTask(index),
-                  );
-                },
+            Text(
+              'TO DO APP',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16.0,
               ),
             ),
-
-            // Add Button
-            Positioned(
-              bottom: 20,
-              right: 20,
-              child: AddButton(
-                onTap: createNewTask,
-              ),
+            Row(
+              children: [
+                Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                  size: 22.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.menu,
+                    color: Colors.grey,
+                    size: 22.0,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ),
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.transparent,
+        color: Colors.grey.shade800,
+        animationDuration: Duration(milliseconds: 350),
+        height: 55,
+        index: selectedIndex,
+        onTap: navigateBottomBar,
+        items: [
+          Icon(Icons.calendar_month),
+          Icon(Icons.home_filled),
+          Icon(Icons.access_time),
+        ],
+      ),
+      body: screens[selectedIndex],
     );
   }
 }

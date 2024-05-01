@@ -30,7 +30,7 @@ class ToDoTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
               onPressed: deleteTask,
               icon: Icons.delete,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.red.shade700,
             ),
           ],
         ),
