@@ -44,6 +44,7 @@ class _NewTaskState extends State<NewTask> {
   // FUNCTION TO ADD NEW TASK
   void createNewTask() {
     showModalBottomSheet(
+        isScrollControlled: true,
         isDismissible: false,
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -53,10 +54,15 @@ class _NewTaskState extends State<NewTask> {
           ),
         ),
         context: context,
-        builder: (BuildContext) {
-          return MyBottomSheet(
-            onSave: saveNewTask,
-            controller: _controller,
+        builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: MyBottomSheet(
+              onSave: saveNewTask,
+              controller: _controller,
+            ),
           );
         });
   }
