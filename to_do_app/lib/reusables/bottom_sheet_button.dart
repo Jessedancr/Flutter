@@ -32,8 +32,9 @@ class BottomSheetButton extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.3),
-                      Colors.white.withOpacity(0.5),
+                      Colors.red.withOpacity(0.5),
+                      Colors.purple.withOpacity(0.7),
+                      Colors.blue.shade900.withOpacity(0.9),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -46,7 +47,9 @@ class BottomSheetButton extends StatelessWidget {
                 child: Text(
                   buttonText,
                   style: TextStyle(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 16,
                   ),
                 ),
               ),

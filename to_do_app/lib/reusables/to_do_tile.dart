@@ -38,7 +38,7 @@ class ToDoTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           child: Container(
             color: Colors.transparent,
-            height: 35,
+            height: 70,
             child: Stack(
               children: [
                 // Blur effect
@@ -56,8 +56,8 @@ class ToDoTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                     gradient: LinearGradient(
                       colors: [
-                        Colors.white.withOpacity(0.25),
-                        Colors.black.withOpacity(0.75),
+                        Colors.white.withOpacity(0.2),
+                        Colors.black.withOpacity(0.5)
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -66,23 +66,38 @@ class ToDoTile extends StatelessWidget {
                 ),
 
                 // Child
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    // Check box
-                    Checkbox(
-                      value: taskDone,
-                      onChanged: onChanged,
-                      activeColor: Colors.black,
+                    Row(
+                      children: [
+                        // Check box
+                        Checkbox(
+                          value: taskDone,
+                          onChanged: onChanged,
+                          activeColor: Colors.black,
+                        ),
+                        // Task name
+                        Text(
+                          taskName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Colors.black,
+                            decoration: taskDone
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                          ),
+                        ),
+                      ],
                     ),
-                    // Task name
                     Text(
-                      taskName,
+                      'T I M E S T A M P',
                       style: TextStyle(
-                        decoration: taskDone
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
                       ),
-                    ),
+                    )
                   ],
                 ),
               ],

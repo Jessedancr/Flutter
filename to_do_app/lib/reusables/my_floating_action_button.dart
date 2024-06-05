@@ -8,12 +8,12 @@ class MyFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: onTap,
-      child: Icon(
-        Icons.add,
-        color: Colors.black,
-      ),
       elevation: 0.0,
-      backgroundColor: Colors.grey[800],
+      backgroundColor: Colors.black,
+      child: Image.asset(
+        'images/add.png',
+        height: 24,
+      ),
     );
   }
 }

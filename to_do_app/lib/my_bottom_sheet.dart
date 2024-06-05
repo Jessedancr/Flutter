@@ -32,22 +32,22 @@ class MyBottomSheet extends StatelessWidget {
             // Blur effect
             BackdropFilter(
               filter: ImageFilter.blur(
-                sigmaX: 5.0,
-                sigmaY: 5.0,
+                sigmaX: 15.0,
+                sigmaY: 15.0,
               ),
+              child: Container(),
             ),
             // Gradient effect
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.white.withOpacity(0.25)),
                 borderRadius: BorderRadiusDirectional.only(
                   topStart: _borderRadius,
                   topEnd: _borderRadius,
                 ),
                 gradient: LinearGradient(
                   colors: [
-                    Colors.white.withOpacity(0.85),
-                    Colors.black.withOpacity(0.8)
+                    Colors.white.withOpacity(0.2),
+                    Colors.black.withOpacity(0.5)
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -66,6 +66,9 @@ class MyBottomSheet extends StatelessWidget {
                     cursorWidth: 1.5,
                     decoration: InputDecoration(
                       hintText: 'Add a new task',
+                      hintStyle: TextStyle(
+                        color: Colors.grey[500],
+                      ),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.black,
@@ -107,8 +110,9 @@ class MyBottomSheet extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                     colors: [
-                                      Colors.white.withOpacity(0.3),
-                                      Colors.white.withOpacity(0.5),
+                                      Colors.red.withOpacity(0.5),
+                                      Colors.purple.withOpacity(0.7),
+                                      Colors.blue.shade900.withOpacity(0.9),
                                     ],
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
@@ -121,7 +125,9 @@ class MyBottomSheet extends StatelessWidget {
                                 child: Text(
                                   'Save',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ),

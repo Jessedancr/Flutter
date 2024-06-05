@@ -30,6 +30,9 @@ class HomePageState extends State<HomePage> {
     });
   }
 
+  // Creating intance of NewTaskState to call the deleteAll function
+  NewTaskState newTask = NewTaskState();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,23 +48,21 @@ class HomePageState extends State<HomePage> {
             Text(
               'TO DO APP',
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.grey[400],
                 fontSize: 16.0,
               ),
             ),
             Row(
               children: [
-                Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: 22.0,
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset('images/search.png', height: 24),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.menu,
-                    color: Colors.grey,
-                    size: 22.0,
+                  child: IconButton(
+                    onPressed: newTask.deleteAll,
+                    icon: Image.asset('images/delete.png', height: 24),
                   ),
                 ),
               ],
@@ -71,15 +72,15 @@ class HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: Colors.transparent,
-        color: Colors.grey.shade800,
+        color: Colors.black,
         animationDuration: Duration(milliseconds: 350),
         height: 55,
         index: selectedIndex,
         onTap: navigateBottomBar,
         items: [
-          Icon(Icons.calendar_month),
-          Icon(Icons.home_filled),
-          Icon(Icons.access_time),
+          Image.asset('images/scheduled_tasks.png', height: 30, width: 30),
+          Image.asset('images/home.png', height: 35, width: 35),
+          Image.asset('images/completed_tasks.png', height: 35, width: 35),
         ],
       ),
       body: screens[selectedIndex],

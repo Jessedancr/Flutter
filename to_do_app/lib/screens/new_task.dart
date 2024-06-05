@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:to_do_app/data/database.dart';
 
 import 'package:to_do_app/reusables/to_do_tile.dart';
 
@@ -10,42 +12,66 @@ class NewTask extends StatefulWidget {
   const NewTask({super.key});
 
   @override
-  State<NewTask> createState() => _NewTaskState();
+  State<NewTask> createState() => NewTaskState();
 }
 
-class _NewTaskState extends State<NewTask> {
+class NewTaskState extends State<NewTask> {
+  final _myBox = Hive.box('myBox');
   final _controller = TextEditingController();
-  // LIST OF TO DO ITEMS
-  final List toDoItems = [];
+
+  // Instantiation of DB class
+  ToDoDataBase db = ToDoDataBase();
+
+  // INIT STATE METHOD
+  @override
+  void initState() {
+    super.initState();
+    // If this is the first tine opening the app
+    if (_myBox.get("ToDoItem") == null) {
+      db.initialData();
+    } else {
+      db.loadData(); // There's already data in the DB
+    }
+  }
 
   // FUNCTION TO CHECK THE CHECKBOX
   void checkBoxChanged(bool value, int index) {
     setState(() {
-      toDoItems[index][1] = !toDoItems[index][1];
+      db.toDoItems[index][1] = !db.toDoItems[index][1];
     });
+    db.updateData();
   }
 
   // FUNCTION TO SAVE NEW TASK
   void saveNewTask() {
     setState(() {
-      toDoItems.add([_controller.text, false]);
+      db.toDoItems.add([_controller.text, false]);
       Navigator.of(context).pop();
       _controller.clear();
     });
+    db.updateData();
   }
 
   // FUNCTION TO DELETE TASK
   void deleteTask(index) {
     setState(() {
-      toDoItems.removeAt(index);
+      db.toDoItems.removeAt(index);
     });
+    db.updateData();
+  }
+
+  // METHOD TO DELETE ALL TASKS
+  void deleteAll() {
+    setState(() {
+      db.toDoItems.clear();
+    });
+    db.updateData();
   }
 
   // FUNCTION TO ADD NEW TASK
   void createNewTask() {
     showModalBottomSheet(
         isScrollControlled: true,
-        isDismissible: false,
         backgroundColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.only(
@@ -79,11 +105,11 @@ class _NewTaskState extends State<NewTask> {
       child: Stack(
         children: [
           ListView.builder(
-            itemCount: toDoItems.length,
+            itemCount: db.toDoItems.length,
             itemBuilder: (context, index) {
               return ToDoTile(
-                taskName: toDoItems[index][0],
-                taskDone: toDoItems[index][1],
+                taskName: db.toDoItems[index][0],
+                taskDone: db.toDoItems[index][1],
                 onChanged: (value) => checkBoxChanged(value!, index),
                 deleteTask: (context) => deleteTask(index),
               );
