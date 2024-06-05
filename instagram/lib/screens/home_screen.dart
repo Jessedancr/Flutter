@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:instagram/util/user_posts.dart';
 
 import '../util/bubble_stories.dart';
@@ -21,24 +22,25 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[900],
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'Instagram',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 27,
+                fontFamily: 'Lobster',
+              ),
             ),
             Row(
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite_border),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Image.asset('images/heart_red.png', height: 24),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.message),
-                ),
+                Image.asset('images/dm_red.png', height: 22)
               ],
             ),
           ],

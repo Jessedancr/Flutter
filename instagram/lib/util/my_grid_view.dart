@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class MyGridView extends StatelessWidget {
@@ -14,10 +16,35 @@ class MyGridView extends StatelessWidget {
       itemCount: 60,
       //padding: EdgeInsets.all(8.0),
       itemBuilder: (context, index) {
-        return Container(
-          width: 50,
-          height: 50,
-          color: Theme.of(context).primaryColor,
+        return ClipRRect(
+          child: Container(
+            width: 50,
+            height: 50,
+            color: Colors.transparent,
+            child: Stack(
+              children: [
+                // BLUR EFFECT
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(),
+                ),
+
+                // GRADIENT EFFECT
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Colors.white.withOpacity(0.7),
+                        Colors.grey.withOpacity(0.5),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         );
       },
     );

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class BubbleStories extends StatelessWidget {
@@ -10,12 +12,36 @@ class BubbleStories extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).primaryColor,
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            child: Container(
+              width: 60,
+              height: 60,
+              color: Colors.transparent,
+              child: Stack(
+                children: [
+                  // BLUR EFFECT
+                  BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(),
+                  ),
+
+                  // GRADIENT EFFECT
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.white.withOpacity(0.7),
+                          Colors.grey.withOpacity(0.5),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           Text(userName)

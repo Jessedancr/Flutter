@@ -20,18 +20,12 @@ class Reels1 extends StatelessWidget {
             bottom: 10.0,
             child: Column(
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.favorite_border),
+                Image.asset('images/heart_red.png', height: 24),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Image.asset('images/chat_red.png', height: 23),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.chat_bubble_outline_sharp),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.share),
-                ),
+                Image.asset('images/send_red.png', height: 24),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.more_horiz),

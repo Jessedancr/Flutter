@@ -15,13 +15,15 @@ class ExploreScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: AnimSearchBar(
+          rtl: true,
           width: 400,
           textController: textController,
           onSuffixTap: () {},
           onSubmitted: (value) {},
           color: Theme.of(context).primaryColor,
-          textFieldColor: Theme.of(context).primaryColor,
+          textFieldColor: Colors.grey[500],
           helpText: 'Search',
+          
         ),
       ),
       body: MyGridView(),

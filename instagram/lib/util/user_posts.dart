@@ -1,4 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:instagram/util/glass_box.dart';
+
+import 'profile_pic_glass_box.dart';
 
 class UserPosts extends StatelessWidget {
   final String userName;
@@ -12,27 +17,13 @@ class UserPosts extends StatelessWidget {
       children: [
         Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20, bottom: 10),
-              child: Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.5,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
+            GlassBox(),
 
             // PROFILE PICTURE
             Positioned(
               left: 12.0,
               top: 30.0,
-              child: Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey.shade200,
-                ),
-              ),
+              child: ProfilePicGlassBox()
             ),
 
             // USER NAME
@@ -60,12 +51,21 @@ class UserPosts extends StatelessWidget {
           children: [
             Row(
               children: [
-                IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.chat_bubble)),
-                IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Image.asset('images/heart_red.png', height: 24),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: Image.asset('images/chat_red.png', height: 23),
+                ),
+                Image.asset('images/send_red.png', height: 24),
               ],
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.bookmark_outline)),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Image.asset('images/bookmark_red.png', height: 24),
+            ),
           ],
         ),
 

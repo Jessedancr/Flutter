@@ -7,33 +7,37 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: SafeArea(
+    return SafeArea(
+      child: DefaultTabController(
+        length: 3,
         child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // PROFILE PICTURE
-                    Container(
-                      width: 85,
-                      height: 85,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).primaryColor,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, top: 16.0),
+                      child: Container(
+                        width: 70,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          shape: BoxShape.circle,
+                        ),
                       ),
                     ),
-                    // POSTS, FOLLOWERS AND FOLLOWING
+
+                    // POSTS, FOLLOWERS, FOLLOWING
                     Column(
                       children: [
                         Text(
-                          '90',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          '100',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text('Posts'),
                       ],
@@ -42,7 +46,8 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           '500k',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text('Followers'),
                       ],
@@ -50,104 +55,109 @@ class ProfileScreen extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          '100',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          '80',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         Text('Following'),
                       ],
-                    )
+                    ),
                   ],
                 ),
-              ),
 
-              // BIO
-              Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // BIO
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'JESSEDANCR',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text('Dance Artiste'),
+                      Text('Writer'),
+                      Text('Flutter Dev'),
+                    ],
+                  ),
+                ),
+
+                // EDIT BIO AND SHARE BIO BUTTONS
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(
-                      'JESSEDANCR',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
+                    Container(
+                      padding: EdgeInsets.all(5.0),
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: Center(child: Text('Edit Profile')),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.black),
                       ),
                     ),
-                    Text('Dance Artiste'),
-                    Text('Writer'),
-                    Text('Flutter Developer'),
-                  ],
-                ),
-              ),
-
-              // EDIT BIO AND SHARE BIO BUTTONS
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    padding: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(10.0),
+                    Container(
+                      padding: EdgeInsets.all(5.0),
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      child: Center(child: Text('Share Profile')),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(6),
+                        border: Border.all(color: Colors.black),
+                      ),
                     ),
-                    child: Text('Edit profile'),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    padding: EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(10.0),
+                  ],
+                ),
+
+                // STORY HIGHLIGHTS
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: 80,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        BubbleStories(userName: 'Redbull DYS'),
+                        BubbleStories(userName: 'Beat N Feet'),
+                        BubbleStories(userName: 'Rennaisance tour'),
+                        BubbleStories(userName: 'Rema'),
+                      ],
                     ),
-                    child: Text('Share profile'),
                   ),
-                ],
-              ),
+                ),
 
-              // STORY HIGHLIGHTS
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    BubbleStories(userName: 'LA'),
-                    BubbleStories(userName: 'RedBull DYS'),
-                    BubbleStories(userName: 'Beat N Feet'),
-                    BubbleStories(userName: 'Burna'),
+                // TABS
+                TabBar(
+                  indicatorColor: Theme.of(context).primaryColor,
+                  labelColor: Colors.white,
+                  tabs: [
+                    Tab(
+                      icon: Icon(Icons.grid_4x4),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.slow_motion_video_outlined),
+                    ),
+                    Tab(
+                      icon: Icon(Icons.person_pin_circle_rounded),
+                    ),
                   ],
                 ),
-              ),
 
-              // TABS
-              TabBar(
-                indicatorColor: Theme.of(context).primaryColor,
-                labelColor: Colors.white,
-                tabs: [
-                  Tab(
-                    icon: Icon(Icons.grid_4x4_sharp),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: TabBarView(
+                    children: [
+                      MyGridView(),
+                      MyGridView(),
+                      MyGridView(),
+                    ],
                   ),
-                  Tab(
-                    icon: Icon(Icons.slow_motion_video_rounded),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.person_pin_rounded),
-                  )
-                ],
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    MyGridView(),
-                    MyGridView(),
-                    MyGridView(),
-                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
