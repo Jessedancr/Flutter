@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/logic/task_provider.dart';
 
-import 'home_page.dart';
+import 'index_page.dart';
 
 void main() async {
   // Initialize the hive
   await Hive.initFlutter();
 
   // Open a box
-  var box = await Hive.openBox('myBox');
+  await Hive.openBox('myBox');
 
   // Running the app
-  runApp(MyApp());
+  runApp(
+    // Wrapping the entire app in multiprovider
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) {
+            return TaskProvider();
+          },
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: IndexPage(),
     );
   }
 }

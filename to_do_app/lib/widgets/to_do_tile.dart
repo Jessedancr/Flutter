@@ -38,7 +38,8 @@ class ToDoTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           child: Container(
             color: Colors.transparent,
-            height: 70,
+            height: MediaQuery.of(context).size.height * 0.11,
+            width: MediaQuery.of(context).size.width * 0.89,
             child: Stack(
               children: [
                 // Blur effect
@@ -67,6 +68,7 @@ class ToDoTile extends StatelessWidget {
 
                 // Child
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Row(
@@ -78,15 +80,17 @@ class ToDoTile extends StatelessWidget {
                           activeColor: Colors.black,
                         ),
                         // Task name
-                        Text(
-                          taskName,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Colors.black,
-                            decoration: taskDone
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
+                        Expanded(
+                          child: Text(
+                            taskName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: Colors.black,
+                              decoration: taskDone
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                            ),
                           ),
                         ),
                       ],
