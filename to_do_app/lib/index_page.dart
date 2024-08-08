@@ -1,25 +1,27 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // OTHER IMPORTS
 import 'package:to_do_app/screens/completed_tasks.dart';
-import 'package:to_do_app/screens/new_task.dart';
+import 'package:to_do_app/screens/home_screen.dart';
 import 'package:to_do_app/screens/scheduled_tasks.dart';
+import 'logic/task_provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class IndexPage extends StatefulWidget {
+  const IndexPage({super.key});
 
   @override
-  State<HomePage> createState() => HomePageState();
+  State<IndexPage> createState() => IndexPageState();
 }
 
-class HomePageState extends State<HomePage> {
+class IndexPageState extends State<IndexPage> {
   int selectedIndex = 1;
 
-  // LIST OF PAGES/SCREENS FOR BOTTOM BAR
+  // LIST OF SCREENS FOR BOTTOM NAV BAR
   final List screens = [
     ScheduledTasks(),
-    NewTask(),
+    HomeScreen(),
     CompletedTasks(),
   ];
 
@@ -30,11 +32,9 @@ class HomePageState extends State<HomePage> {
     });
   }
 
-  // Creating intance of NewTaskState to call the deleteAll function
-  NewTaskState newTask = NewTaskState();
-
   @override
   Widget build(BuildContext context) {
+    // RETURNED WIDGET
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
@@ -61,7 +61,7 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
-                    onPressed: newTask.deleteAll,
+                    onPressed: context.read<TaskProvider>().deleteAll,
                     icon: Image.asset('images/delete.png', height: 24),
                   ),
                 ),

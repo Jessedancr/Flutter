@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'reusables/bottom_sheet_button.dart';
-import 'home_page.dart';
+import 'widgets/bottom_sheet_button.dart';
+import 'index_page.dart';
 
 var _borderRadius = Radius.circular(15.0);
 
@@ -16,7 +16,7 @@ class MyBottomSheet extends StatelessWidget {
     this.onSave,
   });
 
-  var homePage = HomePageState();
+  var homePage = IndexPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +61,9 @@ class MyBottomSheet extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(19.0),
                   child: TextField(
+                    style: const TextStyle(color: Colors.black),
+                    maxLength: 50,
+                    maxLines: 2,
                     controller: controller,
                     cursorColor: Colors.black,
                     cursorWidth: 1.5,
@@ -70,7 +73,7 @@ class MyBottomSheet extends StatelessWidget {
                         color: Colors.grey[500],
                       ),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.black,
                         ),
                         borderRadius: BorderRadius.circular(10.0),
