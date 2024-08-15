@@ -7,6 +7,8 @@ import '../my_bottom_sheet.dart';
 
 import 'package:to_do_app/widgets/my_floating_action_button.dart';
 
+/// The HomeScreen widget is the main screen of thr to-do app
+/// It displays a list of tasks and allows users to add new tas
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,10 +21,11 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // LIST OF TASKS
+    /// Gets the list of tasks from the task provider
     var tasks = context.watch<TaskProvider>().tasks;
 
-    // FUNCTION TO SAVE NEW TASK
+    /// Function to save a new task to the task provider
+    /// If the task is empty, show a snackbar error message
     void saveNewTask() {
       // Show snackbar if task is empty
       if (_controller.text.trim().isEmpty) {
@@ -42,9 +45,9 @@ class HomeScreenState extends State<HomeScreen> {
       _controller.clear();
     }
 
-    // FUNCTION TO ADD NEW TASK
+    /// Function to add a new task
+    /// Show a modal sheet for adding new tasks
     void createNewTask() {
-      // Show a modal sheet for adding new tasks
       showModalBottomSheet(
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
@@ -68,7 +71,9 @@ class HomeScreenState extends State<HomeScreen> {
           });
     }
 
-    // RETURNED WIDGET
+    /// The main widget of the homescreen
+    /// It displays a list of tasks and a floating action
+    /// button to add new tasks
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -84,10 +89,12 @@ class HomeScreenState extends State<HomeScreen> {
               return ToDoTile(
                 taskName: tasks[index][0],
                 taskDone: tasks[index][1],
+                dateTime: tasks[index][2],
                 onChanged: (val) =>
                     context.read<TaskProvider>().isCompleted(val!, index),
                 deleteTask: (context) =>
                     context.read<TaskProvider>().deleteTask(index),
+                loadingStateIndex: index,
               );
             },
           ),

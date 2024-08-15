@@ -4,8 +4,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/logic/task_provider.dart';
 
 class ToDoTile extends StatelessWidget {
+  final int loadingStateIndex; // index to access loading state
+  final String? dateTime;
   final String taskName;
   final bool taskDone;
   final Function(bool?)? onChanged;
@@ -16,15 +20,22 @@ class ToDoTile extends StatelessWidget {
     required this.taskDone,
     required this.onChanged,
     required this.deleteTask,
+    this.dateTime,
+    required this.loadingStateIndex,
   });
 
   @override
   Widget build(BuildContext context) {
+    // This is used to check if the current task is still loading its' dateTime
+    // by looking up its' loading state in TaskProvider
+    final bool isLoading =
+        context.watch<TaskProvider>().isLoading(loadingStateIndex);
+
     return Padding(
       padding: const EdgeInsets.only(top: 22.0, left: 16.0, right: 16.0),
       child: Slidable(
         endActionPane: ActionPane(
-          motion: StretchMotion(),
+          motion: const StretchMotion(),
           children: [
             SlidableAction(
               borderRadius: BorderRadius.circular(10.0),
@@ -38,7 +49,7 @@ class ToDoTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           child: Container(
             color: Colors.transparent,
-            height: MediaQuery.of(context).size.height * 0.11,
+            height: MediaQuery.of(context).size.height * 0.13,
             width: MediaQuery.of(context).size.width * 0.89,
             child: Stack(
               children: [
@@ -95,13 +106,26 @@ class ToDoTile extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text(
-                      'T I M E S T A M P',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    )
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: isLoading
+                          ? const SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                              ),
+                            )
+                          : Text(
+                              dateTime != null
+                                  ? '$dateTime'
+                                  : 'Error fetching time',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                    ),
                   ],
                 ),
               ],
