@@ -26,13 +26,17 @@ class HomePage extends StatelessWidget {
           children: [
             Text(
               'Tinubu',
-              style: TextStyle(fontSize: _appBarItemSize),
+              style: TextStyle(
+                fontSize: _appBarItemSize,
+                color: Colors.white,
+              ),
             ),
             Row(
               children: [
                 Icon(
                   Icons.menu,
                   size: _appBarItemSize,
+                  color: Colors.white,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),

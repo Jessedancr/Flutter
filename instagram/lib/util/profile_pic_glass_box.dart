@@ -29,7 +29,6 @@ class ProfilePicGlassBox extends StatelessWidget {
                   colors: [
                     Colors.red.withOpacity(0.7),
                     Colors.orange.withOpacity(0.5),
-                    Colors.white.withOpacity(0.3),
                   ],
                 ),
               ),

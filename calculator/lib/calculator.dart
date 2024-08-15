@@ -14,7 +14,7 @@ class _CalculatorState extends State<Calculator> {
   var userQuestion = '';
   var userAnswer = '';
   bool isOperator(String x) {
-    if (x == '/' || x == '*' || x == '-' || x == '+' || x == '%') {
+    if (x == '/' || x == '*' || x == '-' || x == '+' || x == '^' || x == '√') {
       return true;
     }
     return false;
@@ -23,7 +23,7 @@ class _CalculatorState extends State<Calculator> {
   List<String> buttons = [
     'AC',
     'C',
-    '%',
+    '^',
     '/',
     '7',
     '8',
@@ -39,7 +39,8 @@ class _CalculatorState extends State<Calculator> {
     '+',
     '0',
     '.',
-    '='
+    '=',
+    '√',
   ];
 
   bool isAC(String x) {
@@ -122,12 +123,13 @@ class _CalculatorState extends State<Calculator> {
             Expanded(
               flex: 3,
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
-                  childAspectRatio: 1.2 / 1.2,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 1.5,
-                  mainAxisExtent: 62.0
+                  childAspectRatio: MediaQuery.of(context).size.width *
+                      1.1 /
+                      MediaQuery.of(context).size.height *
+                      1.75,
+                  mainAxisSpacing: MediaQuery.of(context).size.height * 0.004,
                 ),
                 itemCount: buttons.length,
                 itemBuilder: (context, index) {
@@ -142,7 +144,7 @@ class _CalculatorState extends State<Calculator> {
                     );
                   }
                   // Equal button
-                  else if (index == buttons.length - 1) {
+                  else if (index == buttons.length - 2) {
                     return MyButton(
                       splashColor: Colors.grey,
                       buttonTapped: () {

@@ -19,62 +19,65 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: Colors.grey[900],
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          backgroundColor: Colors.grey[900],
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Instagram',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 27,
+                  fontFamily: 'Lobster',
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.asset('images/heart_red.png', height: 24),
+                  ),
+                  Image.asset('images/dm_red.png', height: 22),
+                  
+                ],
+              ),
+            ],
+          ),
+        ),
+        body: Column(
           children: [
-            Text(
-              'Instagram',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 27,
-                fontFamily: 'Lobster',
+            // USER STORIES
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  return BubbleStories(
+                    userName: users[index][0],
+                  );
+                },
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Image.asset('images/heart_red.png', height: 24),
-                ),
-                Image.asset('images/dm_red.png', height: 22)
-              ],
+
+            // USER POSTS
+            Expanded(
+              child: ListView.builder(
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  return UserPosts(
+                    userName: users[index][0],
+                    caption: users[index][1],
+                  );
+                },
+              ),
             ),
           ],
         ),
-      ),
-      body: Column(
-        children: [
-          // USER STORIES
-          SizedBox(
-            height: 100,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                return BubbleStories(
-                  userName: users[index][0],
-                );
-              },
-            ),
-          ),
-
-          // USER POSTS
-          Expanded(
-            child: ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                return UserPosts(
-                  userName: users[index][0],
-                  caption: users[index][1],
-                );
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

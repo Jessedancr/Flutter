@@ -31,8 +31,8 @@ class MainApp extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: FrostedGlass(
-          theWidth: 200,
-          theHeight: 200,
+          theWidth: 200.0,
+          theHeight: 200.0,
           theChild: Text("FROSTED GLASS EXAMPLE", style: TextStyle(fontWeight: FontWeight.bold),),
         ),
       ),

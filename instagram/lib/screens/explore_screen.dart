@@ -23,7 +23,6 @@ class ExploreScreen extends StatelessWidget {
           color: Theme.of(context).primaryColor,
           textFieldColor: Colors.grey[500],
           helpText: 'Search',
-          
         ),
       ),
       body: MyGridView(),
