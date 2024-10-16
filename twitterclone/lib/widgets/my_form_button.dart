@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 /**
  * A SIMPLE ELEVATED BUTTON
  */
-class MyButton extends StatelessWidget {
+class MyFormButton extends StatelessWidget {
   final void Function()? onTap;
   final String text;
-  const MyButton({
+  const MyFormButton({
     super.key,
     required this.onTap,
     required this.text,
@@ -19,7 +19,7 @@ class MyButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(

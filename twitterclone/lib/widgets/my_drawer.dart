@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:twitterclone/services/auth/auth_service.dart';
 import 'package:twitterclone/widgets/my_drawer_tile.dart';
 
+import '../screens/profile_screen.dart';
+
 /**
  * Drawer menu which usually appears on the left side of the screen
  * 
@@ -52,6 +54,17 @@ class MyDrawer extends StatelessWidget {
               ),
 
               //Profile
+              MyDrawerTile(
+                title: 'P R O F I L E',
+                leadingIcon: Icons.person,
+                onTap: () {
+                  // Pop the drawer
+                  Navigator.of(context).pop();
+
+                  // Go to profile page
+                  Navigator.of(context).pushNamed('/profile');
+                },
+              ),
 
               //Search
 

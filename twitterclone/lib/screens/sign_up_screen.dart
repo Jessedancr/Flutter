@@ -3,7 +3,7 @@ import 'package:twitterclone/services/auth/auth_service.dart';
 import 'package:twitterclone/services/database/database_service.dart';
 import 'package:twitterclone/widgets/my_loading_circle.dart';
 
-import '../widgets/my_button.dart';
+import '../widgets/my_form_button.dart';
 import '../widgets/my_text_field.dart';
 
 /**
@@ -47,7 +47,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (mounted) hideLoadingCircle(context);
 
         // Store user in db
-        await _db.saveUserInfo(email: emailController.text, name: nameController.text);
+        await _db.saveUserInfo(
+            email: emailController.text, name: nameController.text);
       } catch (e) {
         if (mounted) hideLoadingCircle(context);
 
@@ -142,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 10),
 
                   // Sign up button
-                  MyButton(
+                  MyFormButton(
                     onTap: userSignUp,
                     text: 'Sign up',
                   ),

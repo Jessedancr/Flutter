@@ -13,13 +13,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
  * email
  */
 
-class UserProfileSchema {
+class UserProfileModel {
   final String uid;
   final String name;
   final String username;
   final String bio;
   final String email;
-  UserProfileSchema({
+  UserProfileModel({
     required this.uid,
     required this.name,
     required this.username,
@@ -30,8 +30,8 @@ class UserProfileSchema {
   /**
    * Convert firbase doc to user profile using the cloud firestore package
    */
-  factory UserProfileSchema.fromDocument(DocumentSnapshot doc) {
-    return UserProfileSchema(
+  factory UserProfileModel.fromDocument(DocumentSnapshot doc) {
+    return UserProfileModel(
       uid: doc['uid'],
       bio: doc['bio'],
       email: doc['email'],

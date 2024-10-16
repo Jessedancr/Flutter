@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twitterclone/services/auth/auth_service.dart';
-import 'package:twitterclone/widgets/my_button.dart';
+import 'package:twitterclone/widgets/my_form_button.dart';
 import 'package:twitterclone/widgets/my_loading_circle.dart';
 
 import '../widgets/my_text_field.dart';
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 15),
 
                   // Sign in button
-                  MyButton(
+                  MyFormButton(
                     onTap: login,
                     text: 'Login',
                   ),
